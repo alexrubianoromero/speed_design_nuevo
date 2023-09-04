@@ -337,15 +337,13 @@ class ordenControlador
     // print_r($infoCodigo);
     // echo '</pre>';
     // die();
+
+        
+        
         $this->itemsOrdenModelo->eliminarItem($request['idItem']);
         //traer numero de orden 
         $infoOrden = $this->modeloOrden->traerOrdenId($infoItem['no_factura'],''); 
-        //si se esta eliminado se debe volver a sumar al inventario si existe
-        $request['id']= $infoCodigo['id_codigo'];
-        $request['tipo'] = 3;
-        $request['cantidad'] =  $infoItem['cantidad']; 
-        //aqui actualiza el inventario 
-        $this->codigosModelo->saveMoreLessInvent($request);
+
         //ahora graba el registro del movimiento
         $data['tipo']=3;
         $data['cantidad'] = $infoItem['cantidad'];
@@ -353,7 +351,16 @@ class ordenControlador
         $data['id'] = $infoCodigo['id_codigo'];
         $data['observaciones'] = 'Entrada Anulacion Item de orden '.$infoOrden['orden']; 
         //aqui viene el id del idItem
-        $this->movimientosModelo->registerMov($data);
+        $cantidad['cantidad'] = $infoItem['cantidad'];
+        $idUltMov = $this->movimientosModelo->registerMovNew($data,$cantidad);
+
+
+        //si se esta eliminado se debe volver a sumar al inventario si existe
+        $request['id']= $infoCodigo['id_codigo'];
+        $request['tipo'] = 3;
+        $request['cantidad'] =  $infoItem['cantidad']; 
+        //aqui actualiza el inventario 
+        $this->codigosModelo->saveMoreLessInventNew($request,$idUltMov);
         //aqui hay que enviarle el id pero de la orden
         $request['idOrden'] = $infoItem['no_factura'];
         $this->mostrarItemsOrden($request);

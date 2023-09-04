@@ -109,8 +109,8 @@ class ventasController
         $ultIdVenta = $this->ventasModel->traerUltimoIdVentas();
         $itemsTemp = $this->ventasTemporalModel->traerItemsVentaTemporal($request['idTemp']);
         $this->ventasModel->grabarItemsVenta($ultIdVenta,$itemsTemp); 
-        $this->relizarDescuentosInventario($itemsTemp);
         $this->registrarMovimientosInventario($ultIdVenta,$itemsTemp);
+        // $this->relizarDescuentosInventario($itemsTemp);
         //limpiar las tablas temporales
         $respu['idVenta']= $ultIdVenta;
         echo json_encode($respu);
@@ -137,7 +137,14 @@ class ventasController
             $data['id'] = $itemTemp['idCode'];
             $data['observaciones'] = 'Salida en Venta '.$ultIdVenta; 
             //ahora graba el registro del movimiento 
-            $this->movimientosModelo->registerMov($data);
+            //esta parte la tuve que colocar porque la funcion registerMovNew ahora pide el request con el campo cantidad
+            //esto porque donde esteban estaba fallando el descuento de inventario 
+            $requestNuevo['cantidad'] = $itemTemp['cantidad'];
+            $idUltMov = $this->movimientosModelo->registerMovNew($data,$requestNuevo);
+            $parametros['id'] = $itemTemp['idCode'];
+            $parametros['tipo'] = 6;
+            $parametros['cantidad']= $itemTemp['cantidad'];
+            $this->codigosModelo->saveMoreLessInventNew($parametros,$idUltMov);
         }    
     }
     public function verItemsVenta($request)

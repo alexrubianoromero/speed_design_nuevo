@@ -126,8 +126,8 @@ class CodigosInventarioControlador{
         {
             // echo 'llego aca savemore'; 
             // die();
-            $this->modelo->saveMoreLessInvent($request);
-            $this->movimientosModelo->registerMov($request); 
+            $idUltMov =$this->movimientosModelo->registerMovNew($request,$request); 
+            $this->modelo->saveMoreLessInventNew($request,$idUltMov);
         }
         
         public function formuFiltrosInventario()

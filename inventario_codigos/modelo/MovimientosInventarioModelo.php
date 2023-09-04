@@ -88,6 +88,7 @@
             
             public function registerMovNew($data,$request)
             {
+                
                 //////////////1 , 3 y 5 son entradas y suma al inventario 
                 //1 es entrada de inventario realizada desde el modulo de inventario osea suma al inventario
                 //3 es es la eliminacion del un item del inventario osea se suma al inventario porque vuelve 
@@ -119,19 +120,19 @@
                 }        
             
                 if($data['tipo']==5)
-            { 
+                { 
                 $obseTipo= '';
                 $campo = 'facturacompra';
-            }        
+                }        
 
-            if($data['tipo']==3)
-            { 
+                if($data['tipo']==3)
+                { 
                 $obseTipo= '';
                 $campo = 'facturacompra';
-            }        
+                }        
             
-            if($data['tipo']==1)
-            { 
+                if($data['tipo']==1)
+                { 
                 $obseTipo= 'Entrada Inventario';
                 $campo = 'facturacompra';}
                 
