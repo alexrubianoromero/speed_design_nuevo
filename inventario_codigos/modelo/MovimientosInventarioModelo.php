@@ -189,6 +189,15 @@
             // die($maximo);
             return $maximo; 
         }
+        public function traerMovimientosFecha($fecha)
+        {
+            $sql ="select * from movimientos_inventario where fecha_movimiento = '".$fecha."'  
+            and anulado =  0 "; 
+            // die($sql);
+            $consulta = mysql_query($sql,$this->connectMysql());  
+            $arrMovimientos = $this->get_table_assoc($consulta);
+            return $arrMovimientos;
+        }
         
         
         

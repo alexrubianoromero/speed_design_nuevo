@@ -25,30 +25,38 @@ class inventarioCodigosVista extends vista
         <body class = "container" width ="95%">
             <div >
                 <div class="row">
-                    <div class="col-xs-3">
+                    <div class="col-xs-2">
                         <button 
                             data-toggle="modal" data-target="#myModalFiltroCodigos"
                             class = "btn btn-default"
                             onclick = "pregunteFiltrosCodigo()"
                         >Filtros</button>
                     </div>
-                    <div class="col-xs-3">
+                    <div class="col-xs-2">
                         <button 
                             data-toggle="modal" data-target="#myModalProducto" 
                             class="btn btn-primary" 
                             onclick="pregunteNuevoCodigo(); "
                         >NUEVO_COD</button>
                     </div>
-                    <div class="col-xs-3">
+                    <div class="col-xs-2">
+                        <a role="button" class ="btn btn-primary" href="../inventario_codigos/excel/generar_excel.php"
+                        >Excel</a>
+                    </div>
+                    <div class="col-xs-2">
                         <button 
-                            data-toggle="modal" data-target="#myModalAlertas" 
                             class="btn btn-primary" 
-                            onclick="verAlertasDeInventario(); "
-                        >Alertas</button>
+                            onclick="pantallaInventario(); "
+                        >listar</button>
                     </div>
-                    <div class="col-xs-3">
-                        <a role="button" class ="btn btn-primary" href="../inventario_codigos/excel/generar_excel.php">Exportar Excel</a>
+                    <div class="col-xs-2">
+                        <button 
+                            data-toggle="modal" data-target="#myModalVerificarInventario" 
+                            class="btn btn-primary" 
+                            onclick="verificacionMovimientosInventario(); "
+                        >Verificacion</button>
                     </div>
+                
                 </div>
                 <div id = "divResultadosInventarios"> <?php $this->mostrarCodigos($codigos); ?></div>
             </div>
@@ -58,6 +66,7 @@ class inventarioCodigosVista extends vista
             <?php $this->modalMovimientos(); ?>
             <?php $this->modalFiltroCodigos(); ?>
             <?php $this->modalAlertas(); ?>
+            <?php $this->modalVerificar(); ?>
         </body>
         </html>
 
@@ -124,6 +133,33 @@ class inventarioCodigosVista extends vista
                       <h4 class="modal-title" id="myModalLabel">Consultar</h4>
                   </div>
                   <div id="cuerpoModalClientes" class="modal-body" style="color:black;">
+                      
+                      
+                  </div>
+                  <div class="modal-footer" id="footerNuevoCliente">
+                      <button type="button" class="btn btn-default" data-dismiss="modal" onclick="verTalleres();">Cerrar</button>
+                      <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                  </div>
+                  </div>
+              </div>
+          </div>
+        <?php
+    }
+
+    public function modalVerificar()
+    {
+        ?>
+         <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal2">
+         Launch demo modal
+         </button> -->
+          <div  class="modal fade " id="myModalVerificarInventario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                  <div class="modal-header" id="headerNuevoCliente">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="myModalLabel">Consultar</h4>
+                  </div>
+                  <div id="cuerpoModalVerificarInventario" class="modal-body" style="color:black;">
                       
                       
                   </div>

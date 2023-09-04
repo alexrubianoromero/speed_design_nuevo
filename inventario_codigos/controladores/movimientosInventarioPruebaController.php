@@ -24,6 +24,14 @@ class movimientosInventarioPruebaController
        {
             $this->mostrarMovimientos($_REQUEST);
        }
+       if($_REQUEST['opcion']=='verificacionMovimientosInventario')
+       {
+            $this->verificacionMovimientosInventario($_REQUEST);
+       }
+       if($_REQUEST['opcion']=='verificarMovimientosFecha')
+       {
+            $this->verificarMovimientosFecha($_REQUEST);
+       }
 
    }
 
@@ -37,6 +45,18 @@ class movimientosInventarioPruebaController
        $datosCod = $this->modelCod->getInfoCodeById($request['idCode']);
        $movimientosCode =  $this->modelMovimientos->searchMovCode($request['idCode']);
        $this->vistaMov->showMovCode($datosCod,$movimientosCode);   
+   }
+
+   public function verificacionMovimientosInventario()
+   {
+        $this->vistaMov->verificacionMovimientosInventario(); 
+   }
+   public function verificarMovimientosFecha($request)
+   {
+       $movimientos =  $this->modelMovimientos->traerMovimientosFecha($request['fechaVerificacion']); 
+       $this->vistaMov->mostrarMovRealizarVerificacion($movimientos,$request['fechaVerificacion']);
+
+
    }
 
 }
