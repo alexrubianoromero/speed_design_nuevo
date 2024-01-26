@@ -135,10 +135,10 @@ require_once($raiz.'/resumenQuerysMovimientos/models/ResumenQuerysMovimientoMode
             //id  el id del codigo 
             //tipo  es la razon de la entrada o el descuento si es por aplicar el codigo a una orden o por venta o por simple cuadre
             //cantidad la cantidad que se va a 
-            //1 , 3 y 5 son entradas y suma al inventario 
+            //1 , 3 y 5  son entradas y suma al inventario 
             //1 es entrada de inventario realizada desde el modulo de inventario osea suma al inventario
             //3 es es la eliminacion del un item del inventario osea se suma al inventario porque vuelve 
-            //5 es la reversion de una venta de mostrador
+            //5 es la reversion de una venta de mostrador ode uno de sus items 
             //2,4 y 6  son salidas y resta al inventario 
             //2 es una salida de inventario desde el modulo de inventarios osea resta del inventario
             //4 es un item agregado a una orden osea resta del inventario

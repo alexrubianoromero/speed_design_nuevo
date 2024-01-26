@@ -61,14 +61,52 @@ class ventasController
         $this->pedirClaveEliminar($_REQUEST);
         } 
         
-       if($_REQUEST['opcion']=='verificarClaveEliminar'){
-        $this->verificarClaveEliminar($_REQUEST);
+        if($_REQUEST['opcion']=='verificarClaveEliminar'){
+            $this->verificarClaveEliminar($_REQUEST);
         } 
-
+        if($_REQUEST['opcion']=='eliminarItemVentaMostrador'){
+            $this->eliminarItemVentaMostrador($_REQUEST);
+        } 
+        
+        if($_REQUEST['opcion']=='pedirClaveEliminarItemVenta'){
+          $this->vista->pedirClaveEliminarItemVenta($_REQUEST['idItem']);
+        } 
+   
 
        
     }
 
+
+    public function eliminarItemVentaMostrador($request)
+    {
+        $infoItemVenta = $this->ventasModel->traerInfoItemVentaId($request['idItem']); 
+        // echo 'desde funcion<pre>'; 
+        // print_r($infoItemVenta);
+        // echo '</pre>';
+        // die(); 
+        //registrar el movimiento del producto o codigo
+        //hay que armar la data al parecer es el id codigo, tipo, cantidad 
+        //de acuerdo a una mejora anterior a esta funcion le debo enviar un arelgo request con campo  cantidad del item que voya a eliminar
+        $data['tipo']= 5;
+        $data['cantidad'] = $infoItemVenta['cantidad'];
+        $data['factura'] = ''; 
+        $data['id'] = $infoItemVenta['codigo'];
+        $data['observaciones'] = ' Ingreso por anulacion item Venta  id '.$request['idItem']; 
+        //ahora graba el registro del movimiento 
+        //esta parte la tuve que colocar porque la funcion registerMovNew ahora pide el request con el campo cantidad
+        //esto porque donde esteban estaba fallando el descuento de inventario 
+        $requestNuevo['cantidad'] = $infoItemVenta['cantidad'];
+        $idUltMov = $this->movimientosModelo->registerMovNew($data,$requestNuevo);
+        //hacer el ajuste de inventario y sumar nuevamente la cantidad que se habia colocado en el item 
+        $parametros['id'] = $infoItemVenta['codigo'];
+        $parametros['tipo'] = 5;
+        $parametros['cantidad']= $infoItemVenta['cantidad'];
+        $this->codigosModelo->saveMoreLessInventNew($parametros,$idUltMov);
+        //eliminar el item del inventario 
+        $this->ventasModel->eliminarItemDeVentaId($request['idItem']);
+
+        echo 'Eliminacion realizada ';
+    }
 
     public function pantallaPrincipalVentas($request)
     {

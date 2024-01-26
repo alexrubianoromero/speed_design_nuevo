@@ -399,6 +399,7 @@ function confirmarEliminarVenta(idVenta)
         alert('no confirmo');
    }
 }
+
 function pedirClaveEliminar(idVenta)
 {
     const http=new XMLHttpRequest();
@@ -455,6 +456,124 @@ function verificarClaveEliminar(idVenta)
     + "&clavePan="+clavePan
     );
 }
+
+function confirmarEliminarItemVenta(idItem)
+{
+    // alert(idItem);
+    var confirmaEliminar =  confirm('Esta seguro de eliminar esta Item de esta venta? ');
+    if(confirmaEliminar)
+    {
+        pedirClaveEliminarItemVenta(idItem)
+    }
+    else{
+        alert('no confirmo');
+   }
+}
+function pedirClaveEliminarItemVenta(idItem)
+{
+    const http=new XMLHttpRequest();
+    const url = '../ventas/ventas.php';
+    http.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status ==200){
+            // var resp = JSON.parse(this.responseText);
+            // console.log(resp.descripcion); 
+            // alert(resp.descripcion); 
+            document.getElementById("cuerpoModalEliminarVenta").innerHTML = this.responseText;
+            // document.getElementById("codNuevoItem").value = resp.codigo_producto;
+            // document.getElementById("descripan").value = resp.descripcion;
+            // document.getElementById("valorUnitpan").value = resp.valor_unit;
+        }
+    };
+    
+    http.open("POST",url);
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.send("opcion=pedirClaveEliminarItemVenta"
+    + "&idItem="+idItem
+    );
+}
+
+function verificarClaveEliminarItemVenta(idItem)
+{
+    // alert( 'nuemro de venta'+idVenta)
+    var clavePan =  document.getElementById("claveEliminar").value;
+    const http=new XMLHttpRequest();
+    const url = '../ventas/ventas.php';
+    http.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status ==200){
+            var resp = JSON.parse(this.responseText);
+            console.log(resp); 
+            // alert(resp); 
+            if(resp)
+            {
+                eliminarItemVenta(idItem)
+
+            }
+            else{
+                alert('Clave incorrecta ');
+            }
+
+            // document.getElementById("cuerpoModalEliminarVenta").innerHTML = this.responseText;
+            // document.getElementById("codNuevoItem").value = resp.codigo_producto;
+            // document.getElementById("descripan").value = resp.descripcion;
+            // document.getElementById("valorUnitpan").value = resp.valor_unit;
+        }
+    };
+    
+    http.open("POST",url);
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.send("opcion=verificarClaveEliminar"
+    + "&clavePan="+clavePan
+    );
+}
+function eliminarItemVenta(idItem)
+{
+    // alert('eliminar  item  venta'+idItem);
+    const http=new XMLHttpRequest();
+    const url = '../ventas/ventas.php';
+    http.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status ==200){
+            // var resp = JSON.parse(this.responseText);
+            // console.log(resp.descripcion); 
+            // alert(resp.descripcion); 
+            document.getElementById("cuerpoModalEliminarVenta").innerHTML = this.responseText;
+            // document.getElementById("codNuevoItem").value = resp.codigo_producto;
+            // document.getElementById("descripan").value = resp.descripcion;
+            // document.getElementById("valorUnitpan").value = resp.valor_unit;
+        }
+    };
+    
+    http.open("POST",url);
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.send("opcion=eliminarItemVentaMostrador"
+    + "&idItem="+idItem
+    + "&eliminar=1"
+    );
+}
+
+function eliminarItemVentaMostrador(idItem)
+{
+    var confirmaEliminarItem =  confirm('Esta seguro de eliminar este item?');
+    if(confirmaEliminarItem)
+    {
+        const http=new XMLHttpRequest();
+        const url = '../ventas/ventas.php';
+        http.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status ==200){
+                document.getElementById("cuerpoModalMuestreItemsVenta").innerHTML = this.responseText;
+            }
+        };
+        http.open("POST",url);
+        http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        http.send("opcion=eliminarItemVentaMostrador"
+        + "&idItem="+idItem
+        );
+    }    
+}
+
+
+
+
+
 // function grabarNuevoItemNewVenta(idOrden)
 // {
     //     $valida =  validacionCamposItem();

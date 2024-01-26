@@ -45,6 +45,13 @@ class inventarioCodigosVista extends vista
                     </div>
                     <div class="col-xs-2">
                         <button 
+                            data-toggle="modal" data-target="#myModalAlertas" 
+                            class="btn btn-primary" 
+                            onclick="verAlertasDeInventario(); "
+                        >Alertas</button>
+                    </div>
+                    <div class="col-xs-2">
+                        <button 
                             class="btn btn-primary" 
                             onclick="pantallaInventario(); "
                         >listar</button>

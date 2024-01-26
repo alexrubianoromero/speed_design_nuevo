@@ -644,9 +644,60 @@ function grabarVehiculoDesdeOrden()
                 document.getElementById("totalItem").value = total;
             }
             
+            function preguntarClaveEliminarItemOrden(idItem)
+            {
+                // alert (idItem);
+                
+                const http=new XMLHttpRequest();
+                const url = '../orden/ordenes.php';
+                http.onreadystatechange = function(){
+                    if(this.readyState == 4 && this.status ==200){
+                        // var  resp = JSON.parse(this.responseText); 
+                        // alert('respuesta'+ resp.data.descripcion);
+                        // document.getElementById("divPregunteNuevoItem").innerHTML = '';
+                        document.getElementById("divPedirConfirmacionDeEliminacion").innerHTML = this.responseText;
+                    }
+                };
+                http.open("POST",url);
+                http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                http.send("opcion=preguntarClaveEliminarItemOrden"
+                + "&idItem="+idItem
+                );
+            }
+            function verificarClaveEliminarItemOrden(idItem)
+            {
+                // alert (idItem);
+                var clave = document.getElementById("claveEliminacion").value;
+                // alert(clave);
+                if(clave == '01'){
+
+                    document.getElementById("divPedirConfirmacionDeEliminacion").innerHTML = '';
+                    eliminarItemOrden(idItem);
+                }
+                else{
+                    alert('Clave incorrecta');
+                    document.getElementById("divPedirConfirmacionDeEliminacion").innerHTML = '';
+                }
+                // const http=new XMLHttpRequest();
+                // const url = '../orden/ordenes.php';
+                // http.onreadystatechange = function(){
+                //     if(this.readyState == 4 && this.status ==200){
+                //         // var  resp = JSON.parse(this.responseText); 
+                //         // alert('respuesta'+ resp.data.descripcion);
+                //         // document.getElementById("divPregunteNuevoItem").innerHTML = '';
+                //         document.getElementById("divPedirConfirmacionDeEliminacion").innerHTML = this.responseText;
+                //     }
+                // };
+                // http.open("POST",url);
+                // http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                // http.send("opcion=preguntarClaveEliminarItemOrden"
+                // + "&idItem="+idItem
+                // );
+            }
             function eliminarItemOrden(idItem)
             {
                 // alert (idItem);
+                
                 const http=new XMLHttpRequest();
                 const url = '../orden/ordenes.php';
                 http.onreadystatechange = function(){

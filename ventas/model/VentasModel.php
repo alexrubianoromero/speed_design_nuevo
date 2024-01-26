@@ -61,6 +61,13 @@ class VentasModel extends Conexion
         return $arreglo; 
     }
     
+    public function traerInfoItemVentaId($idVenta)
+    {
+        $sql = "select * from ventas_items where id_item = '".$idVenta."'   "; 
+        $consulta = mysql_query($sql,$this->connectMysql());
+        $arreglo = mysql_fetch_assoc($consulta); 
+        return $arreglo; 
+    }
     public function sumarItemsVentaId($idVenta)
     {
         $sql = "select sum(total_item) as total  from ventas_items where no_factura =  '".$idVenta."'   "; 
@@ -87,6 +94,12 @@ class VentasModel extends Conexion
     public function eliminarVentaId($id)
     {
         $sql ="delete from ventas where idVenta =  '".$id."'  "; 
+        $consulta = mysql_query($sql,$this->connectMysql());
+    }
+    
+    public function eliminarItemDeVentaId($idItem)
+    {
+        $sql = "delete from ventas_items where id_item  =  '".$idItem."'   "; 
         $consulta = mysql_query($sql,$this->connectMysql());
     }
 

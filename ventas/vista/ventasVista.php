@@ -11,6 +11,10 @@ class ventasVista
 
     public function __construct()
     {
+        session_start();
+        // echo '<pre>'; 
+        // print_r($_SESSION); 
+        // echo '</pre>';
         $this->codigosModelo = new CodigosInventarioModelo();
         $this->ventasModel = new VentasModel();
     }
@@ -530,6 +534,7 @@ class ventasVista
         echo '<table class="table">';
         echo '<tr>';
         echo '<th>Venta</th>';
+        echo '<th>Pdf</th>';
         echo '<th>Fecha</th>';
         echo '<th>Total</th>';
         echo '<th>Eliminar</th>';
@@ -543,6 +548,7 @@ class ventasVista
             class="btn btn-primary" 
             data-toggle="modal" data-target="#myModalMuestreItemsVenta" 
             onclick="verItemsVenta('.$venta['idVenta'].');">'.$venta['idVenta'].'</button></td>';
+            echo '<td><a href="../ventas/pdf/pdfVenta.php?idVenta='.$venta['idVenta'].'" target="_blank" >PDF</a></td>';
             echo '<td>'.$venta['fecha'].'</td>';
             echo '<td align="right" >'.number_format($sumaItems,0,",",".").'</td>';
             echo '<td>
@@ -557,40 +563,54 @@ class ventasVista
     
     public function verItemsVenta($itemsVenta,$request)
     {
-        echo '<table class="table">';
-        echo '<tr>';
-        echo '<th>Codigo</th>';
-        echo '<th>Descripcion</th>';
-        echo '<th>Referencia</th>';
-        echo '<th>Vr.Unit</th>';
-        echo '<th>Vr.Cant</th>';
-        echo '<th>TotalItem</th>';
-        echo '</tr>';
-        $suma=0;
-        foreach($itemsVenta as $item)
-        {
-            echo '<tr>';
-            echo '<td>'.$item['codigo'].'</td>';
-            echo '<td>'.$item['descripcion'].'</td>';
-            echo '<td>'.$item['referencia'].'</td>';
-            echo '<td align="right">'.number_format($item['valor_unitario'],0,",",".").'</td>';
-            echo '<td>'.$item['cantidad'].'</td>';
-            echo '<td align="right">'.number_format($item['total_item'],0,",",".").'</td>';
+       echo '<div padding="2px">'; 
+       echo '<table class="table">';
+       echo '<tr>';
+       echo '<th>Codigo</th>';
+       echo '<th>Descripcion</th>';
+       echo '<th>Referencia</th>';
+       echo '<th>Vr.Unit</th>';
+       echo '<th>Vr.Cant</th>';
+       echo '<th>TotalItem</th>';
+       echo '<th>Eliminar</th>';
+       echo '</tr>';
+       $suma=0;
+       foreach($itemsVenta as $item)
+       {
+           echo '<tr>';
+           echo '<td>'.$item['codigo'].'</td>';
+           echo '<td>'.$item['descripcion'].'</td>';
+           echo '<td>'.$item['referencia'].'</td>';
+           echo '<td align="right">'.number_format($item['valor_unitario'],0,",",".").'</td>';
+           echo '<td>'.$item['cantidad'].'</td>';
+           echo '<td align="right">'.number_format($item['total_item'],0,",",".").'</td>';
+           if(isset($_SESSION['nivel']) && $_SESSION['nivel']==3){
+               // echo '<td><button class="btn btn-primary btn-sm" onclick ="eliminarItemVentaMostrador('.$item['id_item'].')">Eliminar</button></td></td>';
+               echo '<td><button class="btn btn-primary btn-sm" onclick ="confirmarEliminarItemVenta('.$item['id_item'].')">Eliminar</button></td></td>';
+            }
             echo '</tr>';
             $suma = $suma+$item['total_item'];
         }
         echo '<tr>';
         echo '<td></td><td></td><td></td><td></td><td>Total</td><td align="right">'.number_format($suma,0,",",".").'</td>';
         echo '</tr>';
+        // if(isset($request['eliminar']) && $request['eliminar']==1)
+        // {
+            
+        //     echo '<tr>';
+            
+        //     echo '<td><button class="btn btn-primary" onclick="confirmarEliminarVenta('.$request['idVenta'].');">Eliminar Venta</button></td>';
+        //     echo '</tr>';
+        // }
+        echo '</table>';
+        echo '</div>';
+        echo '<div class="row">'; 
         if(isset($request['eliminar']) && $request['eliminar']==1)
         {
-            
-            echo '<tr>';
-
-            echo '<td><button class="btn btn-primary" onclick="confirmarEliminarVenta('.$request['idVenta'].');">Eliminar Venta</button></td>';
-            echo '</tr>';
+            echo '<button class="btn btn-primary" onclick="confirmarEliminarVenta('.$request['idVenta'].');">Eliminar Toda la Venta</button>';
         }
-        echo '</table>';
+        
+        echo '</div>';
         
     }
     public function pedirClaveEliminar($idVenta)
@@ -601,6 +621,17 @@ class ventasVista
             <label>Digite clave para eliminar</label>
             <input type="password" id="claveEliminar">
             <button class ="btn btn-primary" onclick ="verificarClaveEliminar('<?php echo $idVenta ?>');" >Verificar</button>  
+        </div>
+        <?php
+    }
+    public function pedirClaveEliminarItemVenta($idItem)
+    {
+        ?>
+        <div>
+            <input type="hidden" id="idItem" value = <?php echo  $idItem  ?>>
+            <label>Digite clave para eliminar</label>
+            <input type="password" id="claveEliminar">
+            <button class ="btn btn-primary" onclick ="verificarClaveEliminarItemVenta('<?php echo $idItem ?>');" >Verificar</button>  
         </div>
         <?php
     }
