@@ -240,6 +240,15 @@ class VehiculosModelo extends Conexion
             where placa = '".$anterior."'   ";
             $consulta = mysql_query($sql,$this->connectMysql()); 
         } 
+
+        public function actualizarPropietarioNew($request)
+        {
+            $sql = "update carros set 
+            propietario = '".$request['nuevoProp']."'                 
+            where idcarro = '".$request['idcarro']."' 
+             ";
+            $consulta = mysql_query($sql,$this->connectMysql()); 
+        }
     }
 
 

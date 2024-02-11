@@ -2,11 +2,17 @@
 
 $raiz = dirname(dirname(dirname(__file__)));
 require_once($raiz.'/vista/vista.php');
+require_once($raiz.'/clientes/modelo/ClientesModelo.class.php');
 
 class VehiculoVista extends vista
 {
 
+ protected $clienteModel;
 
+        public function __construct()
+        {
+            $this->clienteModel = new ClientesModelo();
+        }
 
 
 
@@ -486,22 +492,75 @@ class VehiculoVista extends vista
 
     public function mostrarDatosPlacaNew($datosPlaca,$datosCliente0)
     {
+        // echo '<pre>'; 
+        // print_r($datosPlaca);
+        // echo '</pre>';
+        $clientes = $this->clienteModel->traerTodosLosClientes();
+
         ?>
         <div style="color:black;">
         <input type="hidden" id="placaoripan" value = "<?php  echo $datosPlaca['placa'] ?>">
         <input type="hidden" id="idcarro" value = "<?php  echo $datosPlaca['idcarro'] ?>">
             <div class="form-group row">
-                <div class ="col-xs-12">
-                    <label>Placa:</label><input type="text" id="placapan" value = "<?php  echo $datosPlaca['placa'] ?>">
+                <div class =" row">
+                    <label class="col-lg-3">Propietario:</label>
+                    <!-- <input type="text" id="placapan" value = "<?php  echo $datosPlaca['placa'] ?>"> -->
+                    <div class="col-lg-5">
+                        <select id="idPropietario" class="form-control">
+                            <option value="-1">Seleccione...</option>
+                            <?php
+                            foreach($clientes as $cliente)
+                            {
+                                if($datosPlaca['idpropietario']== $cliente['idcliente'] )
+                                {
+                                    echo '<option selected value="'.$cliente['idcliente'].'">'.$cliente['nombre'].'-'.$cliente['identi'].'</option>';
+                                }else{
+                                    echo '<option value="'.$cliente['idcliente'].'">'.$cliente['nombre'].'-'.$cliente['identi'].'</option>';
+                                }
+                            }
+                            ?>
+                        </select>
+                    </div>
                 </div>
-                <div class ="col-xs-12">
-                    <label>Marca:</label><input type="text" id="marcapan" value = "<?php  echo $datosPlaca['marca'] ?>">
+                <div class="row">
+                    <label class="col-lg-3">Cambiar: <input type="checkbox" id="cambiarProp"  value="1"></label>
+                    <div class="col-lg-3" align="left">
+                        <input 
+                            class="form-control" 
+                            type="text" 
+                            id="nombreBuscarParaCambiar" 
+                            onkeyup = "buscarNombreParaCambiar();"
+                            placeholder="Nombre">
+                    </div>
+                    <div class="col-lg-5" align="left">
+                        <!-- <input class="form-control" type="text" id="nombreBuscarParaCambiar" placeholder="Nombre"> -->
+                            <select id="idPropietarioCambiar" class="form-control">
+                        </select>
+                    </div>
                 </div>
-                <div class ="col-xs-12">
-                    <label>Tipo:</label><input type="text" id="tipopan" value = "<?php  echo $datosPlaca['tipo'] ?>">
+                <div class ="row">
+                    <label class="col-lg-3">Placa:</label>
+                    <div class="col-lg-8">
+                        <input class="form-control" type="text" id="placapan" value = "<?php  echo $datosPlaca['placa'] ?>">
+                    </div>
                 </div>
-                <div class ="col-xs-12">
-                    <label>Modelo:</label><input type="text" id="modelopan" value = "<?php  echo $datosPlaca['modelo'] ?>">
+                <div class ="col-xs-12 row">
+                    <label class="col-lg-3">Marca:</label>
+                    <div class="col-lg-8">
+                        <input class="form-control"  type="text" id="marcapan" value = "<?php  echo $datosPlaca['marca'] ?>">
+                    </div>
+                </div>
+                <div class ="col-xs-12 row">
+                    <label class="col-lg-3">Tipo:</label>
+                    <div class="col-lg-8">
+                        <input class="form-control" type="text" id="tipopan" value = "<?php  echo $datosPlaca['tipo'] ?>">
+                    </div>
+                </div>
+                <div class ="col-xs-12 row">
+                    <label class="col-lg-3">Modelo:</label>
+                    <div class="col-lg-8">
+                        <input class="form-control" type="text" id="modelopan" value = "<?php  echo $datosPlaca['modelo'] ?>">
+                    </div>
                 </div>
             </div>
             <br>
@@ -929,6 +988,16 @@ class VehiculoVista extends vista
                
         </div>
         <?php
+    }
+
+
+    public function mostrarClientes($clientes)
+    {
+        echo '<option value="-1">Seleccione... </option>';
+        foreach($clientes as $cliente)
+        {
+            echo '<option value="'.$cliente['idcliente'].'">'.$cliente['nombre'].'-'.$cliente['identi'].'</option>';
+        }
     }
 
 }

@@ -29,6 +29,21 @@ class ClientesModelo extends Conexion
             return  $infoCLiente;
           } 
           
+          public function traerTodosLosClientes()
+          {
+              $sql ="select * from cliente0  order by nombre"; 
+              $consulta = mysql_query($sql,$this->connectMysql()); 
+              $clientes = $this->get_table_assoc($consulta);
+              return $clientes;
+          }
+          public function traerClientesFiltroNombre($nombre)
+          {
+              $sql ="select * from cliente0 where nombre like '%".$nombre."%' order by nombre"; 
+              // die($sql);
+              $consulta = mysql_query($sql,$this->connectMysql()); 
+              $clientes = $this->get_table_assoc($consulta);
+              return $clientes;
+          }
           
           public function traerDatosCliente0($conexion="")
           {

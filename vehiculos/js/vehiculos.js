@@ -357,9 +357,31 @@ function filtrarPropietariosNombre()
     + "&nombreCliente="+nombreCliente
     );
 }
+function buscarNombreParaCambiar()
+{
+    // alert('filtro de propietarios');
+    var nombre =  document.getElementById("nombreBuscarParaCambiar").value;
+    const http=new XMLHttpRequest();
+    const url = '../vehiculos/vehiculos.php';
+    http.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status ==200){
+            document.getElementById("idPropietarioCambiar").innerHTML = this.responseText;
+        }
+    };
+    http.open("POST",url);
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.send("opcion=buscarNombreParaCambiar"
+    + "&nombre="+nombre
+    );
+}
 
 function actualizarVehiculoNew()
 {
+    var cambiarProp= $("#cambiarProp:checked").val();
+    var nuevoProp= $("#idPropietarioCambiar").val();
+
+    // if ($_POST['cambiar_mecanico']== 'undefined'){$_POST['cambiar_mecanico'] = 0;}
+
     var idcarro =  document.getElementById("idcarro").value;
     var placaAnterior =  document.getElementById("placaoripan").value;
     var placaNueva =  document.getElementById("placapan").value;
@@ -383,7 +405,11 @@ function actualizarVehiculoNew()
     + "&marca="+marca
     + "&tipo="+tipo
     + "&modelo="+modelo
+    + "&cambiarProp="+cambiarProp
+    + "&nuevoProp="+nuevoProp
     );
 
 
 }
+
+

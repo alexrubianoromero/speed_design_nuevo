@@ -108,12 +108,23 @@ class vehiculoControlador{
 
             $this->preguntarDatosPlacaDesdeCambio($_REQUEST);
         } 
+        if($_REQUEST['opcion']=='buscarNombreParaCambiar'){
+
+            $this->buscarNombreParaCambiar($_REQUEST);
+        } 
 
 
     }
 
 
 
+    public function buscarNombreParaCambiar($request){
+
+        $clientes =  $this->clientesModelo->traerClientesFiltroNombre($request['nombre']);
+
+        $this->vehiculoVista->mostrarClientes($clientes);         
+
+    }
     public function verificarPlacaRespuestaJson($conexion,$placa){
 
         $filas = $this->vehiculoModelo->verificarPlacaRespuestaJson($conexion,$placa);
@@ -267,7 +278,14 @@ class vehiculoControlador{
     
     public function actualizarDatosVehiculoNew($request)
     {
+        if ($request['cambiarProp']== 'undefined'){$request['cambiarProp'] = 0;}
+
+        if ($request['cambiarProp']== '1'){
+            $this->vehiculoModelo->actualizarPropietarioNew($request);
+        }
+
         $datosPlaca = $this->vehiculoModelo->actualizarDatosVehiculoNew($request);
+
         if($request['placaAnterior'] != $request['placaNueva'] )
         {
             $this->vehiculoModelo->actualizarPlacaOrdenes($request['placaAnterior'],$request['placaNueva'] );
