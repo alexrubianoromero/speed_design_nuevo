@@ -138,6 +138,10 @@ class ordenControlador
         if($_REQUEST['opcion']=='preguntarClaveEliminarItemOrden'){
             $this->vistaOrden->preguntarClaveEliminarItemOrden($_REQUEST['idItem']);
         }
+        if($_REQUEST['opcion']=='verHistorialFacturacion'){
+            $historiales = $this->modeloOrden->traerHistorialesFacturacionOrdenId($_REQUEST['idOrden']);
+            $this->vistaOrden->verHistorialFacturacion($historiales);
+        }
        
     }
 
@@ -412,17 +416,22 @@ class ordenControlador
         
         // echo '<br>'.$fechapan; 
         // echo '<br>'.$ultimoestadoFactu['fecha'];
-        if($fechapan = $ultimoestadoFactu['fecha'])
+        // die('llego hasta aqui ');
+        if($fechapan == $ultimoestadoFactu['fecha']) //osea si es del mismo dia 
         {
-            echo 'si se puede reversar'; 
+            // echo 'si se puede reversar'; 
+            // die(' son del mismo dia '); 
             //llamar funcion del modelo y hacer el cambio 
+            //cambiar el estado de la orden a 1
             $this->modeloOrden->realizarReversionFacturadaIdOrden($request['idOrden']);
+            //crear registro en la tabla registrofacturadas como desfacturada  con la fecha y hora 
             $this->modeloOrden->crearRegistroDesfacturadaId($request['idOrden']);
+            //eliminar los recibos de caja de esta orden 
             $this->modeloOrden->eliminarReciboDeCajaReversionFacturaIdOrden($request['idOrden']);
             echo 'Facturacion reversada'; 
         }
         else {
-            echo 'no se puede reversar , no es del mismo dia ';
+            echo 'no se puede reversar , solo se pueden reversar ordenes que hallan sido facturadas el mismo dia que se va a reversar la factura  ';
         }
     }
     

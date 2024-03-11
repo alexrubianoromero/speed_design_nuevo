@@ -336,7 +336,20 @@ Class OrdenesModelo extends Conexion
             $consulta = mysql_query($sql,$this->connectMysql()); 
             $imagenes = $this->get_table_assoc($consulta);
             return $imagenes;  
+            
+        }
+        
 
+        /** 
+         * esta funcion trae el historial de facturacion o desfacturacion de una orden 
+        */
+
+        public function traerHistorialesFacturacionOrdenId($idOrden)
+        {
+            $sql = "select * from registrofacturadas  where idOrden =  '".$idOrden."' order by id desc  "; 
+            $consulta = mysql_query($sql,$this->connectMysql()); 
+            $historial = $this->get_table_assoc($consulta);
+            return $historial;  
         }
 
 }

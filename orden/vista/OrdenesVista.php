@@ -78,8 +78,9 @@ class OrdenesVista extends vista
                <?php  $this->modalReversionFacturada(); ?>
                <?php  $this->modalAgregarItems(); ?>
                <?php  $this->modalFiltrosCodigosNew(); ?>
-               <?php  $this-> modalImagenes(); ?>
+               <?php  $this-> modalImagenes(); ?>myModal2
                <?php  $this-> modalEnviarCorreo(); ?>
+               <?php  $this-> modalHistorialFacturas(); ?>
 
 
            </body>
@@ -191,7 +192,12 @@ class OrdenesVista extends vista
             //       >IMA</button>';
             
             // echo '</td>';
-            echo '<td>'.$orden['fecha'].'</td>';
+            // echo '<td>'.$orden['fecha'].'</td>'; 
+            echo '<td><button 
+                        class="btn btn-info btn-sm"
+                        data-toggle="modal" data-target="#modalHistorialFacturas"
+                        onclick = "verHistorialFacturacion('.$orden['id'].');"
+                        >'.$orden['fecha'].'</button></td>';
             echo '<td>'.$orden['placa'].'</td>';
             echo '<td>'.$orden['tipo'].'</td>';
             echo '<td>'.substr($orden['observaciones'],0,30).'</td>';
@@ -293,6 +299,10 @@ class OrdenesVista extends vista
           </div>
         <?php
     }
+
+ 
+
+
     public function modalReciboCaja (){
         ?>
          <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal2">
@@ -306,6 +316,31 @@ class OrdenesVista extends vista
                       <h4 class="modal-title" id="myModalLabel">Recibo de Caja</h4>
                   </div>
                   <div id="cuerpoModalReciboCaja" class="modal-body">
+                      
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                      <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                  </div>
+                  </div>
+              </div>
+          </div>
+        <?php
+    }
+    
+    public function modalHistorialFacturas (){
+        ?>
+         <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal2">
+         Launch demo modal
+         </button> -->
+          <div style="color:black;" class="modal fade" id="modalHistorialFacturas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="myModalLabel">Historial Facturas</h4>
+                  </div>
+                  <div id="cuerpoModalHistorialFacturas" class="modal-body">
                       
                   </div>
                   <div class="modal-footer">
@@ -656,6 +691,7 @@ class OrdenesVista extends vista
                                            if($arregloOrden['estado']==2)
                                            {
                                                echo '<button 
+                                                        class="btn btn-danger"
                                                         data-toggle="modal" data-target="#myModalReversionFacturada"
                                                         onclick = "preguntarSeguroReversarFacturada('.$arregloOrden['id'].');"
                                                     > 
@@ -1283,6 +1319,26 @@ public function mostrarItemsOrden($id,$items,$estadoOrden='10',$request = []){
 
             echo '<td>'.$codigo['cantidad'].'</td>';
             // echo '<td><button id="btnRetirarExistencias" class="btn btn-info"><i class="fas fa-minus"></i></button></td>';
+            echo '</tr>';
+        }
+        echo '</table>';
+        echo '</div>';
+    }
+    public function verHistorialFacturacion($historiales){
+        echo '<div class="row">';
+        echo '<table class="table" >';
+        echo '<tbody>';
+        echo '<tr>';
+        echo '<th>Fecha</th>';
+        echo '<th>Observacion</th>';
+        // echo '<th>Descontar</th>';
+        echo '</tr>';
+        echo '</tbody>';
+        foreach($historiales as $historial)
+        {
+            echo '<tr>'; 
+            echo '<td>'.$historial['fecha'].'</td>';
+            echo '<td>'.$historial['observacion'].'</td>';
             echo '</tr>';
         }
         echo '</table>';
