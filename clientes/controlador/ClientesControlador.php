@@ -93,16 +93,29 @@ class ClientesControlador{
             if($_REQUEST['opcion']=='filtrarPropietariosNombre'){
                 $this->filtrarPropietariosNombre($_REQUEST);
             }
+            if($_REQUEST['opcion']=='editarCliente'){
+                $infoCLiente = $this->modelo->traerDatosClienteIdNew($_REQUEST['idCliente']);
+                $this->vista->editarCliente($infoCLiente);
+            }
+            if($_REQUEST['opcion']=='actualizarCliente'){
+                $this->actualizarCliente($_REQUEST);
+            }
 
 
             
-        }
+    }
+        
+
+        
+  public function actualizarCliente($request){
+            $this->modelo->actualizarCliente($request);
+            echo 'Cliente Actualizado'; 
+  }    
         
         
-        
-        public function pantallainicialClientes($conexion){
-            $clientes = $this->modelo->traerDatosCliente0($conexion);
-            $this->vista->pantallaInicialClientesNew($clientes);
+    public function pantallainicialClientes($conexion){
+        $clientes = $this->modelo->traerDatosCliente0($conexion);
+        $this->vista->pantallaInicialClientesNew($clientes);
     }
 
     public function verClientes($conexion){

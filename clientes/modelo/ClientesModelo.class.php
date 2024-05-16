@@ -286,6 +286,20 @@ class ClientesModelo extends Conexion
       return $arreglo;
   }
 
+  public function actualizarCliente($request)
+  {
+      $sql = "update cliente0 
+              set identi = '".$request['identiClienteModif']."'   
+              ,nombre = '".$request['nombreClienteModif']."'   
+              ,telefono = '".$request['telefonoClienteModif']."'   
+              ,email = '".$request['emailClienteModif']."'   
+              ,direccion = '".$request['direccionClienteModif']."'   
+              where idcliente = '".$request['idCliente']."'   
+              " ; 
+        $consulta = mysql_query($sql,$this->connectMysql()); 
+
+  }
+
 
 }
           

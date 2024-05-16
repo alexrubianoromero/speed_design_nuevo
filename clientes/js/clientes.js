@@ -12,6 +12,49 @@ function mostrarClientes(){
     http.send("opcion=verClientes"
     );
 }
+function editarCliente(idCliente){
+    const http=new XMLHttpRequest();
+    const url = '../clientes/clientesResponsivo.php';
+    http.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status ==200){
+              console.log(this.responseText);
+           document.getElementById("cuerpoModalEditarClientes").innerHTML  = this.responseText;
+        }
+    };
+    http.open("POST",url);
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.send("opcion=editarCliente"
+                + "&idCliente="+idCliente
+    );
+}
+
+function actualizarCliente(idCliente){
+    // alert(idCliente);
+    var identiClienteModif =  document.getElementById("identiClienteModif").value;
+    var nombreClienteModif =  document.getElementById("nombreClienteModif").value;
+    var telefonoClienteModif =  document.getElementById("telefonoClienteModif").value;
+    var emailClienteModif =  document.getElementById("emailClienteModif").value;
+    var direccionClienteModif =  document.getElementById("direccionClienteModif").value;
+    
+    const http=new XMLHttpRequest();
+    const url = '../clientes/clientesResponsivo.php';
+    http.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status ==200){
+              console.log(this.responseText);
+           document.getElementById("cuerpoModalEditarClientes").innerHTML  = this.responseText;
+        }
+    };
+    http.open("POST",url);
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.send("opcion=actualizarCliente"
+                + "&idCliente="+idCliente
+                + "&identiClienteModif="+identiClienteModif
+                + "&nombreClienteModif="+nombreClienteModif
+                + "&telefonoClienteModif="+telefonoClienteModif
+                + "&emailClienteModif="+emailClienteModif
+                + "&direccionClienteModif="+direccionClienteModif
+    );
+}
 
 
 

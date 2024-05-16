@@ -150,6 +150,7 @@ class CLientesVista extends vista
              <?php  $this->modalClientesInfo(); ?>   
              <?php  $this->modalClientesHisto(); ?>   
              <?php  $this->modalClientesFiltro(); ?>   
+             <?php  $this->modalEditarClientes(); ?>   
 
              
 
@@ -185,6 +186,29 @@ class CLientesVista extends vista
                   </div>
                   <div class="modal-footer" id="footerNuevoCliente">
                       <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                      <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                  </div>
+                  </div>
+              </div>
+          </div>
+        <?php
+    }
+    public function modalEditarClientes (){
+        ?>
+         <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal2">
+         Launch demo modal
+         </button> -->
+          <div  class="modal fade " id="modalEditarClientes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="color:black;">
+              <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                  <div class="modal-header" id="headerNuevoCliente">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="myModalLabel">Edicion Cliente</h4>
+                  </div>
+                  <div id="cuerpoModalEditarClientes" class="modal-body" style="color:black;">
+                  </div>
+                  <div class="modal-footer" id="footerNuevoCliente">
+                      <button type="button" class="btn btn-default" data-dismiss="modal" onclick="pantallaClientes();">Cerrar</button>
                       <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
                   </div>
                   </div>
@@ -298,9 +322,15 @@ class CLientesVista extends vista
                                                 >';
                             echo strtoupper($cli['identi']);
                             echo '</button></td>';
-                            echo '<td>'.strtoupper($cli['nombre']).'</td>';
+                            echo '<td><button 
+                                        class="btn btn-primary btn-sm"
+                                        data-toggle="modal" data-target="#modalEditarClientes" 
+                                        onclick ="editarCliente('.$cli['idcliente'].');"
+                                        size="8px"
+                                    >'.strtoupper($cli['nombre']).'</button></td>';
                             echo '<td>'.strtoupper($cli['telefono']).'</td>';
                             echo '<td><a href="https://web.whatsapp.com/" target="_blank"><img src="../logos/iconowatsapp.jpg" width="25px"></a></td>';
+                            // echo '<td><a href="https://api.whatsapp.com/send?phone=57'.$cli['telefono'].'" target="_blank"><img src="../logos/iconowatsapp.jpg" width="25px">NUevo</a></td>';
                             // echo '<td>'.strtoupper($vehi['direccion']).'</td>';
                             // echo '<td>'.$vehi['email'].'</td>';
                             echo '</tr>';
@@ -514,6 +544,61 @@ class CLientesVista extends vista
                         <?php $this->mostrarVehiculosCliente($vehiculos);   ?>
                 </div>
             </div>
+
+        </div>
+
+        <?php
+    }
+    public function editarCliente($infoCLiente)
+    {
+        ?>
+        <div  style="color:black;">
+            <div class="row form-group">
+
+                <div class="col-xs-3" align="left">
+                    <label for="">Identidad</label>
+                </div>
+                <div class="col-xs-9" align="left">
+                    <input class="form-control" type="text" id="identiClienteModif" value =" <?php  echo  $infoCLiente['identi'] ?>">
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-xs-3" align="left">
+                    <label for="">Nombre</label>
+                </div>
+                <div class="col-xs-9" align="left">
+                    <input class="form-control" type="text" id="nombreClienteModif" value =" <?php  echo  $infoCLiente['nombre'] ?>">
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-xs-3" align="left">
+                    <label for="">Telefono</label>
+                </div>
+                <div class="col-xs-9" align="left">
+                    <input class="form-control" type="text" id="telefonoClienteModif" value =" <?php  echo  $infoCLiente['telefono'] ?>">
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-xs-3" align="left">
+                    <label for="">Email</label>
+                </div>
+                <div class="col-xs-9" align="left">
+                    <input class="form-control" type="text" id="emailClienteModif" value =" <?php  echo  $infoCLiente['email'] ?>">
+                </div>
+            </div>
+            <div class="row form-group">    
+                <div class="col-xs-3" align="left">
+                    <label for="">Direccion</label>
+                </div>
+                <div class="col-xs-9" align="left">
+                    <input class="form-control" type="text" id="direccionClienteModif" value =" <?php  echo  $infoCLiente['direccion'] ?>">
+                </div>
+            </div>
+            <div>
+                <button class="btn btn-primary btn-block" onclick="actualizarCliente(<?php  echo  $infoCLiente['idcliente'] ?>); ">Actualizar</button>
+            </div>
+
+         
 
         </div>
 
