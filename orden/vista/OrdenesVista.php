@@ -97,7 +97,7 @@ class OrdenesVista extends vista
 
     
     public function pintarOrdenes($arregloOrdenes){
-         
+     
         echo '
         <table class="table" >
         <thead> 
@@ -111,6 +111,8 @@ class OrdenesVista extends vista
         <tbody>
         ';
         for ($i=0; $i <= sizeof($arregloOrdenes);$i++ ){
+       
+                
            echo '<tr>';
            echo '<td><button  
                         onclick="muestreDetalleOrden('.$arregloOrdenes[$i]['id'].');" 
@@ -146,11 +148,18 @@ class OrdenesVista extends vista
         echo '<th>LINEA</th>';
         echo '<th>OBSERVACIONES</th>';
         echo '<th>ESTADO</th>';
+        echo '<th>TECNICO</th>';
         echo '<th>WatsApp</th>';
         echo '</tr>';
         echo '</thead>';
         
         foreach($ordenes as $orden ){
+            $inforOrden =  $this->modelOrden->traerOrdenId($orden['id']);
+            $infoTecnico = $this->tecnicosModelo->traerTecnicoPorId($orden['mecanico']);
+            // echo '<pre>';
+            // print_r($inforOrden);
+            // echo '</pre>';
+            // die();
             // $columna = '<tr>';
             if($orden['estado']==0)
             {
@@ -206,6 +215,7 @@ class OrdenesVista extends vista
             if($orden['estado']==2){ $nombreEstado = 'Facturada';}
             // if($orden['estado']==3){ $nombreEstado = 'Entregada';}
             echo '<td>'.$nombreEstado.'</td>';
+            echo '<td>'.$inforOrden['mecanico'].'</td>';
             echo '<td><a href="https://web.whatsapp.com/" target="_blank"><img src="../logos/iconowatsapp.jpg" width="25px"></a></td>';
             echo '</tr>';
         

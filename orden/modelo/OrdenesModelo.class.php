@@ -45,7 +45,7 @@ Class OrdenesModelo extends Conexion
      }   
 
      public function traerOrdenesNew($request = []){
-         $sql = " SELECT o.id,o.orden,o.fecha,o.placa,c.tipo,o.estado,o.kilometraje,o.observaciones  
+         $sql = " SELECT o.id,o.orden,o.fecha,o.placa,c.tipo,o.estado,o.kilometraje,o.observaciones,o.mecanico  
                   FROM ordenes o 
                   LEFT JOIN carros c on c.placa = o.placa 
                   ORDER BY  o.id DESC 
