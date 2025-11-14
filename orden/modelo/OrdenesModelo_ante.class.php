@@ -56,19 +56,6 @@ Class OrdenesModelo extends Conexion
          $arreglo = $this->get_table_assoc($consulta);
          return $arreglo;
      }   
-     public function traerOrdenesNewEnProceso($request = []){
-         $sql = " SELECT o.id,o.orden,o.fecha,o.placa,c.tipo,o.estado,o.kilometraje,o.observaciones,o.mecanico  
-                  FROM ordenes o 
-                  LEFT JOIN carros c on c.placa = o.placa 
-                  where o.estado =0
-                  ORDER BY  o.id DESC 
-                  
-                  ";
-                //   die($sql);
-         $consulta = mysql_query($sql,$this->connectMysql());
-         $arreglo = $this->get_table_assoc($consulta);
-         return $arreglo;
-     }   
 
 
 

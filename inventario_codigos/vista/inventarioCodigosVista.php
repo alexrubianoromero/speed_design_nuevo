@@ -185,7 +185,7 @@ class inventarioCodigosVista extends vista
          <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal2">
          Launch demo modal
          </button> -->
-          <div  class="modal fade " id="myModalAlertas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div  class="modal fade  " id="myModalAlertas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
               <div class="modal-dialog" role="document">
                   <div class="modal-content">
                   <div class="modal-header" id="headerNuevoCliente">
@@ -640,9 +640,9 @@ class inventarioCodigosVista extends vista
             <tr>
                 <th>COD</th>
                 <th>REF</th>
-                <th>DESCRIPCION</th>
-                <th>PROD_MIN</th>
-                <th>CANT.</th>
+                <th>DESCRIPCION.</th>
+                <th>MIN/CANT</th>
+                <!-- <th>CANT.</th> -->
 
             </tr>
             <?php
@@ -654,8 +654,8 @@ class inventarioCodigosVista extends vista
                     echo '<td>'.$codigoAlerta['codigo_producto'].'</td>';
                     echo '<td>'.$codigoAlerta['referencia'].'</td>';
                     echo '<td>'.$codigoAlerta['descripcion'].'</td>';
-                    echo '<td align="center">'.$codigoAlerta['producto_minimo'].'</td>';
-                    echo '<td>'.$codigoAlerta['cantidad'].'</td>';
+                    echo '<td align="center">'.$codigoAlerta['producto_minimo'].' CANT '.$codigoAlerta['cantidad'].'</td>';
+                    // echo '<td>'.$codigoAlerta['cantidad'].'</td>';
                     echo '</tr>';
                 }
             }

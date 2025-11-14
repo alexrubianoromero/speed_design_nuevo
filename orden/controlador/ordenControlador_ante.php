@@ -187,7 +187,7 @@ class ordenControlador
 
 
     public function pantallaConsultas($conexion){
-        $arregloOrdenes = $this->modeloOrden->traerOrdenesNewEnProceso($conexion);
+        $arregloOrdenes = $this->modeloOrden->traerOrdenesNew($conexion);
         $this->vistaOrden->pantallaInicial($arregloOrdenes);
     }
 

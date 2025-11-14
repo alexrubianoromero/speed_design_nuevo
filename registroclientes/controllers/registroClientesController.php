@@ -15,7 +15,7 @@ class registroClientesController
 
     public function __construct()
     {
-
+        die('contactar soporte');
         // echo '<pre>'; 
         // print_r($_REQUEST);
         // echo '</pre>';

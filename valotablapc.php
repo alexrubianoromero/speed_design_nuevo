@@ -40,7 +40,10 @@ $empresas_externas = "empresas_externas";
 // $clave  = "peluche2016";
 // $nombrebase = "base_demo2";
 
-
+$servidor = "localhost";
+$usuario = "ctwtvsxj_admin";
+$clave  = "ElMejorProgramador***";
+$nombrebase = "ctwtvsxj_base_demo2_speed_desing";
 
 
 

@@ -51,11 +51,9 @@ $pdf->Cell(22,6,'  Speed design motolavado taller',0,0,'C');
 $pdf->Cell(41);
 $pdf->Cell(90,6,'Cra 30 No 20-65',1,1,'C');
 $pdf->Cell(17);
-$pdf->Cell(22,6,'Nit: 901795052 ',0,1,'C');
-$pdf->Cell(17);
-$pdf->Cell(22,6,'Cel: 3002419678 ',0,1,'C');
-$pdf->Cell(17);
 $pdf->Cell(22,6,'Cll 22 # 96f-35 ',0,1,'C');
+$pdf->Cell(17);
+$pdf->Cell(22,6,'Nit: 12345678 ',0,1,'C');
 
 
 $kilometraje = $datoOrden['kilometraje'];
