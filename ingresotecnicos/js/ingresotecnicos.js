@@ -14,6 +14,23 @@ function traerOrdenes()
     http.send("opcion=traerOrdenes"
     );
 }
+function traerOrdenesTecnico()
+{
+    const http=new XMLHttpRequest();
+    const url = '../ingresotecnicos/ingresotecnicos.php';
+    var id_usuario = localStorage.getItem('id_usuario');
+    // alert('Anterior'+ placaAnterior + '  nueva '+ placaNueva )
+    http.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status ==200){
+            document.getElementById("div_principal_mostrar_ordenes_tecnico").innerHTML = this.responseText;
+        }
+    };
+    http.open("POST",url);
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.send("opcion=traerOrdenesTecnico"
+          + "&id_usuario="+id_usuario
+    );
+}
 
 
 function salirTecnico()

@@ -31,13 +31,13 @@ class ingresotecnicosView
                 </div>
                 <div id="divBotonesPrincipales" style="padding:5px;">
                     
-                    <button class="btn btn-primary" onclick="traerOrdenes();">Ordenes</button>
+                    <button class="btn btn-primary" onclick="traerOrdenesTecnico();">Ordenes</button>
                     <button class="btn btn-primary" onclick="limpiarOrdenes();">Limpiar</button>
                     <button class="btn btn-primary" onclick="salirTecnico();">Salir</button>
                 </div>
                 <div id="resultaodosOrdenes" class="mt-3 container ">
                     <?php  
-                            $this->traerOrdenes();  
+                            // $this->traerOrdenes();  
                     ?>
                     <!-- <button onclick="pantallaOrdenesTecnicos();">Ver Ordenes</button> -->
                 </div>
@@ -59,6 +59,27 @@ class ingresotecnicosView
             </tr>
                 <?php
                 $ordenes = $this->variosModel->traerOrdenes();
+                foreach($ordenes as $orden )
+                {
+                    echo '<tr>'; 
+                    echo '<td>'.$orden['orden'].'</td>';
+                    echo '<td><a href="../orden/pdf/ordenPdf3.php?idOrden='.$orden['id'].'"  target="_blank">Pdf</a></td>';
+                    echo '</tr>';
+                }
+                ?>
+        </table>
+        <?php
+    }
+    public function traerOrdenesTecnico($id_usuario)
+    {
+        ?>
+         <table class="table table-striped">
+            <tr>
+                <th>Orden</th>
+                <th>Pdf</th>
+            </tr>
+                <?php
+                $ordenes = $this->variosModel->traerOrdenesUsuario($id_usuario);
                 foreach($ordenes as $orden )
                 {
                     echo '<tr>'; 

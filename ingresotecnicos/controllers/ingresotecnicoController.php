@@ -28,6 +28,9 @@ class ingresoController
             if($_REQUEST['opcion']=='traerOrdenes'){
                 $this->view->traerOrdenes();
             }
+            if($_REQUEST['opcion']=='traerOrdenesTecnico'){
+                $this->view->traerOrdenesTecnico($_REQUEST['id_usuario']);
+            }
     }
 
 }

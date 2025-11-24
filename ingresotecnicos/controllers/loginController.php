@@ -33,10 +33,11 @@ class loginController
         $respu = $this->variosModel->verificarCredencialesTecnicos($request);
         if($respu['valida']==1)
         {
-            session_start();
-            $_SESSION['login'] = $respu['datos']['login'];
-            $_SESSION['id_usuario'] = $respu['datos']['id_usuario'];
-            $_SESSION['id_perfil'] = $respu['datos']['id_perfil'];
+          $respu['token'] = md5($respu['clave']);  
+        //     session_start();
+        //     $_SESSION['login'] = $respu['datos']['login'];
+        //     $_SESSION['id_usuario'] = $respu['datos']['id_usuario'];
+        //     $_SESSION['id_perfil'] = $respu['datos']['id_perfil'];
         }
         echo  json_encode($respu);
         exit();

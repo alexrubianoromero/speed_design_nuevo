@@ -21,11 +21,11 @@ class loginView
                     <div>SISTEMA CONTROL ORDENES DE REPARACION </div>
                     <div class="col-lg-12 mt-3">
                         <label>Usuario:</label>
-                        <input type="text" id="usuario" class="form-control">
+                        <input type="text" id="usuario" class="form-control" value="pruebaProd">
                     </div>
                     <div class="col-lg-12 mt-3">
                         <label>Clave:</label>
-                        <input type="password" id="clave" class="form-control">
+                        <input type="password" id="clave" class="form-control" value="1234">
                     </div>
                     <div class="mt-3 text-center">
                         <button class="btn btn-primary " onclick="verificarCredenciales();">Verificar</button>
