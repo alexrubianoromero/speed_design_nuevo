@@ -29,6 +29,40 @@ function formuNuevoTecnico()
     http.send('opcion=formuNuevoTecnico'
     );
 }
+function formuCrearUsuarioTecnico(idtecnico)
+{
+    const http=new XMLHttpRequest();
+    const url = '../tecnicos/tecnicosmovil.php';
+    http.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status ==200){
+        document.getElementById("cuerpoModalTecnicosUsuario").innerHTML  = this.responseText;
+        }
+    };
+    http.open("POST",url);
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.send('opcion=formuCrearUsuarioTecnico'
+        + "&idtecnico="+idtecnico
+    );
+}
+function crearUsuarioTecnico(idtecnico)
+{
+    var login = document.getElementById("loguinTecnico").value;
+    var clave = document.getElementById("claveTecnico").value;
+    const http=new XMLHttpRequest();
+    const url = '../tecnicos/tecnicosmovil.php';
+    http.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status ==200){
+        document.getElementById("cuerpoModalTecnicosUsuario").innerHTML  = this.responseText;
+        }
+    };
+    http.open("POST",url);
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.send('opcion=crearUsuarioTecnico'
+        + "&idtecnico="+idtecnico
+        + "&login="+login
+        + "&clave="+clave
+    );
+}
 
 function grabarTecnico()
 {

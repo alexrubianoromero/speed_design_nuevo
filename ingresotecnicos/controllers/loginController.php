@@ -30,18 +30,24 @@ class loginController
 
      public function verificarCredenciales($request)
     {
+        $infoEmpresa =  $this->variosModel->traerInfoEmpresa();
         $respu = $this->variosModel->verificarCredencialesTecnicos($request);
         if($respu['valida']==1)
         {
+         //traer los datos del tecnico
           $respu['token'] = md5($respu['clave']);  
-        //     session_start();
-        //     $_SESSION['login'] = $respu['datos']['login'];
-        //     $_SESSION['id_usuario'] = $respu['datos']['id_usuario'];
-        //     $_SESSION['id_perfil'] = $respu['datos']['id_perfil'];
+          $respu['linkMenu'] = $infoEmpresa['linkMenuPrincipal'];
+          //     session_start();
+          //     $_SESSION['login'] = $respu['datos']['login'];
+          //     $_SESSION['id_usuario'] = $respu['datos']['id_usuario'];
+          //     $_SESSION['id_perfil'] = $respu['datos']['id_perfil'];
         }
+        $respu['linkLogueo'] = $infoEmpresa['linkLogueoPagina'];
         echo  json_encode($respu);
         exit();
     }
+
+
 
 
 

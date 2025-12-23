@@ -1,9 +1,15 @@
 <?php
 $raiz = dirname(dirname(dirname(__file__)));
 require_once($raiz.'/vista/vista.php');
+require_once($raiz.'/ingresotecnicos/models/VariosModel.php');
 class TecnicosVista extends vista 
 {
+    protected $variosModel;
 
+    public function __construct()
+    {
+        $this->variosModel = new VariosModel();
+    }
 
     public function pantallaprincipalTecnicos($tecnicos = [])
     {
@@ -30,6 +36,7 @@ class TecnicosVista extends vista
                     <thead>
                         <tr>
                             <td>Cedula</td>
+                            <td>Usuario</td>
                             <td>Nombre</td>
                             <td>Telefono</td>
                             <td>Labor</td>
@@ -49,6 +56,16 @@ class TecnicosVista extends vista
                                 >';
                                 echo $tecnico['identi'];
                                 echo '</button></td>';
+                                if($tecnico['idUsuario']==0){ echo '<td>
+                                            <button class="btn btn-primary btn-sm"
+                                            data-toggle="modal" data-target="#myModalTecnicosUsuario" 
+                                                onclick="formuCrearUsuarioTecnico('.$tecnico['idcliente'].');"
+                                            >Crear</button></td>';}
+                                else{ echo '<td>';
+                                    //Buscar el Usuario Usuario
+                                    $infoUsuario = $this->variosModel->traerInfoUsuarioIdTecnico($tecnico['idcliente']);
+                                    echo $infoUsuario['login'];
+                                    echo '</td>';}
                                 echo '<td>'.$tecnico['nombre'].'</td>';
                                 echo '<td>'.$tecnico['telefono'].'</td>';
                                 echo '<td>';
@@ -78,13 +95,31 @@ class TecnicosVista extends vista
             </div>
             <?php  $this->modalTecnicos();  ?>
             <?php  $this->modalTecnicosForm();  ?>
+            <?php  $this->modalTecnicosUsuario();  ?>
             
         </body>
         </html>
         <?php
     }
 
-    
+    public function formuCrearUsuarioTecnico($idTecnico)
+    {
+        ?>
+        <div class="row">
+            <div class="col-lg-4">
+                <label>Loguin:</label>
+                <input type="text" class="form-control" id="loguinTecnico">
+            </div>
+            <div class="col-lg-4">
+                <label>Clave:</label>
+                <input type="text" class="form-control" id="claveTecnico">
+            </div>
+            <div>
+                <button class="btn btn-primary"  onclick="crearUsuarioTecnico(<?php  echo $idTecnico; ?>);">Crear Usuario Sistema</button>
+            </div>
+        </div>
+        <?php
+    }
     public function modalTecnicos ()
     {
         ?>
@@ -99,6 +134,32 @@ class TecnicosVista extends vista
                       <h4 class="modal-title" id="myModalLabel">Tecnico</h4>
                   </div>
                   <div id="cuerpoModalTecnicos" class="modal-body" style="color:black;">
+                      
+                      
+                  </div>
+                  <div class="modal-footer" id="footerNuevoCliente">
+                      <button type="button" class="btn btn-default" data-dismiss="modal" onclick="pantallaTecnicos12();">Cerrar</button>
+                      <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                  </div>
+                  </div>
+              </div>
+          </div>
+        <?php
+    }
+    public function modalTecnicosUsuario ()
+    {
+        ?>
+         <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal2">
+         Launch demo modal
+         </button> -->
+          <div  class="modal fade " id="myModalTecnicosUsuario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                  <div class="modal-header" id="headerNuevoCliente">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="myModalLabel">Tecnico</h4>
+                  </div>
+                  <div id="cuerpoModalTecnicosUsuario" class="modal-body" style="color:black;">
                       
                       
                   </div>

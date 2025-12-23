@@ -43,6 +43,36 @@ class TecnicosModelo extends Conexion
         
         echo 'Tecnico grabado';
     }
+    public function grabarUsuario($request)
+    {
+        $sql = "insert into usuarios (login,clave,idempresa,id_perfil,idTecnico,nombre,id_empresa_externa) 
+        values ('".$request['login']."','".$request['clave']."','300'
+        ,'8'
+        ,'".$request['idtecnico']."'
+        ,'".$request['login']."'
+        ,'0'
+        )"; 
+        $consulta = mysql_query($sql,$this->connectMysql());
+        $maxId = $this->traerMaxIdUsuario();
+        return $maxId;
+    }
+
+    public function traerMaxIdUsuario()
+    {
+        $sql ="select max(id_usuario) as idMax  from usuarios ";
+          $consulta = mysql_query($sql,$this->connectMysql());
+        $arrOrden = mysql_fetch_assoc($consulta);
+        $maxId = $arrOrden['idMax'];
+        return $maxId;
+    }
+
+    public function  actualizarIdUsuariotecnico($request,$idUsuario)
+    {
+         $sql = "update tecnicos set 
+        idUsuario = '".$idUsuario."'
+        where idcliente = '".$request['idtecnico']."'  ";
+        $consulta = mysql_query($sql,$this->connectMysql());
+    }
     public function actualizarTecnico($request)
     {
         $sql = "update tecnicos set 

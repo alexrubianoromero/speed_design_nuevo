@@ -19,6 +19,7 @@ class ingresoController
                 //salir del sistema
               }
           if(!isset($_REQUEST['opcion']) || $_REQUEST['opcion']=='traerOrdenes'){
+            // echo '<pre>'; print_r($_REQUEST); echo '</pre>'; die();
              $this->view->pantallaPrincipal();
           }
           if($_REQUEST['opcion']=='salirTecnico'){
@@ -29,7 +30,8 @@ class ingresoController
                 $this->view->traerOrdenes();
             }
             if($_REQUEST['opcion']=='traerOrdenesTecnico'){
-                $this->view->traerOrdenesTecnico($_REQUEST['id_usuario']);
+              // echo '<pre>'; print_r($_REQUEST); echo '</pre>'; die();
+                $this->view->traerOrdenesTecnico($_REQUEST['idTecnico']);
             }
     }
 

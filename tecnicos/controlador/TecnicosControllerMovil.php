@@ -31,9 +31,20 @@ class  TecnicosControllerMovil
         if($_REQUEST['opcion']=='eliminarTecnico'){
             $this->eliminarTecnico($_REQUEST); 
         }
+        if($_REQUEST['opcion']=='formuCrearUsuarioTecnico'){
+            $this->vista->formuCrearUsuarioTecnico($_REQUEST['idtecnico']); 
+        }
+        if($_REQUEST['opcion']=='crearUsuarioTecnico'){
+            $this->crearUsuarioTecnico($_REQUEST); 
+        }
 
     }
-
+    public function crearUsuarioTecnico($request)
+    {
+        //crear el usuario del sistema 
+         $idUsuario = $this->model->grabarUsuario($request);
+        $this->model->actualizarIdUsuariotecnico($request,$idUsuario);
+    }
     public function pantallaPrincipalTecnicos()
     {
         // die('llegoa la funcion del controlador '); 

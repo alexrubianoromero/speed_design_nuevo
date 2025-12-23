@@ -1,0 +1,41 @@
+.fondoprograma
+{
+  background-color: black; /* También puedes usar #000000 */
+  color: white;           /* Agregamos texto blanco para que se pueda leer */
+  padding: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #e0e0e0; /* Blanco grisáceo para que no brille demasiado */
+  background-color: #1a1a1a; /* Un gris muy oscuro en lugar de negro puro */
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th {
+  background-color: #333333; /* Encabezado ligeramente más claro */
+  color: #ffffff;
+  text-align: left;
+  padding: 12px 15px;
+  font-weight: bold;
+  border-bottom: 2px solid #444;
+}
+
+td {
+  padding: 10px 15px;
+  border-bottom: 1px solid #333; /* Bordes sutiles entre filas */
+    color: #ffffff;
+}
+
+/* Efecto Zebra (filas alternas) */
+tr:nth-child(even) {
+  background-color: #252525;
+}
+
+/* Efecto al pasar el mouse */
+tr:hover {
+  background-color: #3d3d3d;
+  transition: background-color 0.3s ease;
+}
