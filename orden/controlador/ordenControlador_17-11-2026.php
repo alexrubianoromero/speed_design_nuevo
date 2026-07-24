@@ -247,8 +247,7 @@ class ordenControlador
 
     public function pintarOrdenesNew(){
 
-        // $arregloOrdenes = $this->modeloOrden->traerOrdenesNew();
-        $arregloOrdenes = $this->modeloOrden->traerOrdenesNewEnProceso();
+        $arregloOrdenes = $this->modeloOrden->traerOrdenesNew();
 
         $this->vistaOrden->pintarOrdenesNew($arregloOrdenes);
 

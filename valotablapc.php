@@ -46,6 +46,7 @@ $empresas_externas = "empresas_externas";
 
 
 
+
 $conexion =mysql_connect($servidor,$usuario,$clave);
 $la_base =mysql_select_db($nombrebase,$conexion);
 
